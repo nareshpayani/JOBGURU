@@ -1,5 +1,32 @@
 import { Link } from "react-router-dom";
 
+// Policy pages aren't built yet — render a non-navigating, keyboard-focusable
+// control that explains why via an accessible tooltip.
+const ComingSoonLink = ({ label }) => {
+  const tooltipId = `footer-tooltip-${label
+    .toLowerCase()
+    .replace(/\s+/g, "-")}`;
+
+  return (
+    <button
+      type="button"
+      aria-disabled="true"
+      aria-describedby={tooltipId}
+      className="group relative cursor-help hover:text-white transition-colors duration-300 focus:outline-none focus-visible:text-white focus-visible:ring-2 focus-visible:ring-primary-400/60 rounded-lg"
+    >
+      <span className="relative z-10">{label}</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
+      <span
+        id={tooltipId}
+        role="tooltip"
+        className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-700 px-2 py-1 text-xs font-medium text-white shadow-lg opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300"
+      >
+        Coming soon
+      </span>
+    </button>
+  );
+};
+
 const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
@@ -141,18 +168,9 @@ const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-gray-400 mb-6 md:mb-0">
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Privacy Policy</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Terms of Service</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Cookie Policy</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
+              <ComingSoonLink label="Privacy Policy" />
+              <ComingSoonLink label="Terms of Service" />
+              <ComingSoonLink label="Cookie Policy" />
               <Link
                 to="/contact"
                 className="group relative hover:text-white transition-colors duration-300"
